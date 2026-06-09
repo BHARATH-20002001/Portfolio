@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="apple-touch-icon" href="./favicon.svg">
 
-  <link rel="preload" href="./assets/hero-orange.jpg" as="image">
+  <link rel="preload" href="./assets/seq/Frontview.png" as="image">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -1705,7 +1705,7 @@
   <section id="hero">
     <!-- Base: orange/warm photo (replaced with video with image fallback) -->
     <div class="hero-photo-wrap">
-      <video id="hero-video" autoplay loop muted playsinline poster="./assets/seq/mainimage-white.jpg">
+      <video id="hero-video" autoplay loop muted playsinline poster="./assets/seq/Frontview.png">
         <source src="./assets/Use_this_image_and_make_a_vide.mp4" type="video/mp4">
       </video>
     </div>
@@ -2096,7 +2096,7 @@
           I’m also available to build <strong>Shopify</strong>, building custom <strong>tailwinds/CSS systems</strong>, and refactoring slow layouts into optimized, component-driven architectures.
         </p>
         <p class="contact-desc" style="margin-top:14px;">
-          If you need a developer who can bridge the gap between heavy CMS backends and modern, high-performance frontend frameworks — <strong>let’s talk.<strong>
+          If you need a developer who can bridge the gap between heavy CMS backends and modern, high-performance frontend frameworks — <strong>let’s talk.</strong>
         </p>
       </div>
 
@@ -2114,7 +2114,7 @@
 
         <div class="c-links reveal d1">
           <div style="font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:rgba(255,255,255,0.2);margin-top:0;margin-bottom:2px;">Direct Channels</div>
-          <a href="tel:+966553569329" class="c-link">
+          <a href="tel:+919843907646" class="c-link">
             <div class="c-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.4 2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
             <div><div class="c-lbl">Phone</div><div class="c-val">+91 98439 07646</div></div>
           </a>
@@ -2657,7 +2657,7 @@
       // Load base image first — unblocks splash as soon as hero is ready.
       // Seq frames load in parallel but do NOT gate the splash.
       const seqPaths = [
-        './assets/seq/Frontview.png','./assets/seq/Frontview-topright.png','./assets/seq/Frontview-topleft.png',
+        './assets/seq/Frontview.png','./assets/seq/Frontview-topright.png','./assets/seq/frontview-topleft.png',
         './assets/seq/frontview-bottomleft.png','./assets/seq/frontview-bottomright.png',
       ];
       let seqFrames = [];
@@ -2838,7 +2838,7 @@
             title: "Sketchshirt",
             desc: "Custom-coded Shopify store optimized for a seamless, high-end shopping experience.",
             meta: ["Shopify", "Antigravity IDE", "Pass = 12345"],
-            img: "./assets/Vibesec/prada.png",
+            img: "./assets/Vibesec/Sketchshirt.png",
             link: "https://sketchshirt2001.myshopify.com/",
             linkText: "View live"
           },
@@ -3270,8 +3270,8 @@
           { title: 'Vaibhav Group', stack: 'Wordpress, Elementor', link: 'https://vaibhavgroup.co.in/', linkText: 'View Live', image: './assets/Vibesec/vaibhavgroup.png', repo: false },
           { title: 'Karkhana', stack: 'Wordpress, Elementor', link: 'https://karkhana.io/', linkText: 'View Live', image: './assets/Vibesec/karkhana.png', repo: false },
           { title: 'Headway', stack: 'Wordpress, Elementor', link: 'https://headwaydm.com/', linkText: 'View Live', image: './assets/Vibesec/headwaydm.png', repo: false },
-          { title: 'TheWiseIdiots', stack: 'Wordpress, Elementor', link: 'https://thewiseidiot.in/', linkText: 'View Live', image: './assets/Vibesec/Thewiseidiots.png', repo: false },
-          { title: 'Bluosoft', stack: 'Wordpress, Elementor', link: 'https://bluosoft.com/', linkText: 'View Live', image: './assets/Vibesec/bluosoft.png', repo: false },
+          { title: 'TheWiseIdiots', stack: 'Wordpress, Elementor', link: 'https://thewiseidiot.in/', linkText: 'View Live', image: './assets/Vibesec/thewiseidiots.png', repo: false },
+          { title: 'Bluosoft', stack: 'Wordpress, Elementor', link: 'https://bluosoft.com/', linkText: 'View Live', image: './assets/Vibesec/Bluosoft.png', repo: false },
           { title: 'Sinternationals', stack: 'WordPress, Elementor', link: 'https://sinternationals.com/', linkText: 'View Live', image: './assets/Vibesec/sinternational.png', repo: false }
         ];
 
@@ -3292,8 +3292,8 @@
 
             // Create list element
             const aEl = document.createElement('a');
-            aEl.href = proj.link;
-            if(proj.link !== 'javascript:void(0)') {
+            aEl.href = proj.link || 'javascript:void(0)';
+            if(proj.link && proj.link !== 'javascript:void(0)') {
               aEl.target = '_blank';
               aEl.rel = 'noopener';
             }
