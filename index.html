@@ -276,143 +276,136 @@
     }
 
     #hero {
-      min-height: 100dvh;
+      min-height: 100vh;
       background: var(--off-white);
       position: relative;
       overflow: hidden;
       display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
+      align-items: center;
+      padding: 0 40px;
     }
 
-    /* Full-bleed base photo (orange/warm) */
-    .hero-photo-wrap {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 60% 40%;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+      z-index: 2;
+      position: relative;
     }
-    .hero-photo-wrap img,
-    .hero-photo-wrap video {
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
+      padding-right: 40px;
+      opacity: 0;
+    }
+
+    .hero-tagline {
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .hero-tagline::before { content: '// '; }
+
+    .hero-h1 {
+      font-family: var(--font);
+      font-size: clamp(48px, 6vw, 70px);
+      font-weight: 700;
+      color: var(--black);
+      line-height: 0.95;
+      letter-spacing: -0.04em;
+    }
+
+    .hero-sub {
+      font-size: clamp(15px, 1.4vw, 18px);
+      color: #555;
+      line-height: 1.6;
+      max-width: 500px;
+    }
+    .hero-sub strong {
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: background 0.3s, transform 0.3s;
+      border-radius: 999px;
+      margin-top: 10px;
+    }
+    .hero-cta:hover {
+      background: #ff5734;
+      transform: translateY(-2px);
+    }
+
+    .hero-tech-stack {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--black);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      flex-wrap: wrap;
+    }
+    .hero-tech-stack .dot {
+      color: var(--accent);
+    }
+
+    .hero-right {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 70vh;
+      width: 100%;
+    }
+
+    #media-frame {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    #media-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transform-origin: center center;
+    }
+
+    #media-overlay video,
+    #media-overlay img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center top;
-    }
-    /* Bottom vignette so name text stays legible */
-    .hero-photo-wrap::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(17,17,17,0.72) 0%,
-        rgba(17,17,17,0.18) 40%,
-        transparent 70%
-      );
-      pointer-events: none;
-    }
-
-    /* ── WebGL fluid canvas (Three-skull fluid sim) ── */
-    #hero-gl {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 1;
-      pointer-events: none;
-    }
-
-    /* Social links — vertically centred on the left edge */
-    .hero-social {
-      position: absolute;
-      left: 40px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 3;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-    .hero-social a {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 500;
-      color: rgba(255,255,255,0.6);
-      letter-spacing: 0.02em;
-      transition: color 0.2s;
-    }
-    .hero-social a:hover { color: #fff; }
-
-    /* Title — inline flow, sits directly above the name */
-    .hero-title {
-      position: relative;
-      z-index: 3;
-      text-align: right;
-      padding: 0 48px 18px 40px;
-    }
-    .hero-title-text {
-      font-size: clamp(14px, 1.4vw, 20px);
-      font-weight: 600;
-      color: #fff;
-      line-height: 1.3;
-      letter-spacing: -0.01em;
-    }
-    .hero-title-slash {
-      color: var(--accent);
-      margin-right: 6px;
-    }
-
-    /* Oversized name — bottom, bleeds right */
-    .hero-name-wrap {
-      position: relative;
-      z-index: 2;
-      padding-bottom: 0;
-      overflow: visible;
-      pointer-events: none;
-      user-select: none;
-    }
-    .hero-name {
-      font-size: 240px; /* fallback — JS computes the exact size to fit width */
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 0.85;
-      color: #fff;
-      white-space: nowrap;
-      padding-left: 32px;
-      padding-right: 32px;
-      animation: heroNameIn 1.2s cubic-bezier(0.16,1,0.3,1) 0.1s both;
-    }
-
-    @keyframes heroNameIn {
-      from { opacity: 0; transform: translateY(40px); }
-      to   { opacity: 1; transform: none; }
-    }
-    @keyframes heroFadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-
-    /* Social uses its own fade that keeps the transform intact */
-    @keyframes heroSocialIn {
-      from { opacity: 0; transform: translateY(calc(-50% + 12px)); }
-      to   { opacity: 1; transform: translateY(-50%); }
-    }
-    .hero-social { animation: heroSocialIn 1s cubic-bezier(0.16,1,0.3,1) 0.7s both; }
-    .hero-title  { animation: heroFadeIn 1s ease 0.9s both; }
-
-
-    .scroll-hint {
-      position: absolute;
-      bottom: 28px;
-      left: 50%;
-      z-index: 3;
-      animation: scrollBob 2.2s ease-in-out infinite 2s;
-    }
-    @keyframes scrollBob {
-      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
-      50%       { transform: translateX(-50%) translateY(8px); opacity: 1; }
     }
 
     /* ============================================================
@@ -978,6 +971,7 @@
       line-height: 0.92;
       margin-bottom: 28px;
       max-width: 14ch;
+      color: #fff;
     }
     .vc-txt-desc {
       font-size: clamp(14px, 1.05vw, 17px);
@@ -998,17 +992,22 @@
       font-weight: 500;
       letter-spacing: 0.06em;
       padding: 7px 14px;
-      border: 1px solid rgba(255,255,255,0.22);
-      color: rgba(255,255,255,0.85);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
     }
-    .vc-txt-chip.accent { border-color: rgba(255,255,255,0.5); color: #fff; }
+    .vc-txt-chip.accent { 
+      border-color: rgba(255, 255, 255, 0.5); 
+      background: rgba(255, 255, 255, 0.1); 
+      color: #fff; 
+    }
     .vc-txt-link {
       display: inline-flex;
       align-items: center;
       gap: 10px;
       padding: 14px 22px;
-      border: 1px solid rgba(255, 120, 30, 0.6);
-      background: rgba(255, 90, 0, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       font-family: var(--mono);
@@ -1022,8 +1021,8 @@
       pointer-events: auto;
     }
     .vc-txt-link:hover {
-      background: rgba(255, 110, 20, 1);
-      border-color: rgba(255, 150, 60, 0.9);
+      background: rgba(255, 255, 255, 0.2);
+      border-color: rgba(255, 255, 255, 0.6);
       gap: 16px;
     }
     .vc-txt-link svg { width: 12px; height: 12px; }
@@ -1076,6 +1075,7 @@
       max-width: 28ch;
       margin-top: 16px;
       margin-bottom: 24px;
+      color: #fff;
     }
     .vc-intro-desc {
       font-size: clamp(14px, 1.05vw, 17px);
@@ -1107,146 +1107,75 @@
       pointer-events: none;
     }
 
-    /* =====================       RECENT PROJECTS — sticky interactive bg
+    /* =====================       RECENT PROJECTS — cards
     ============================================================ */
-    .projects-wrapper {
-      position: relative;
+    #recent-projects {
       background: #0d0d0d;
       color: #ffffff;
-      height: 100vh;
-      overflow: hidden;
+      padding: 100px 40px;
     }
-    .pr-sticky-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      z-index: 0;
-    }
-    .pr-bg-img {
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-size: cover;
-      background-position: top center;
-      opacity: 0;
-      transform: scale(1.05);
-      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 1.2s cubic-bezier(0.25, 1, 0.5, 1);
-      will-change: opacity, transform;
-    }
-    .pr-bg-img.active {
-      opacity: 1;
-      transform: scale(1);
-    }
-    .pr-overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.4);
-      pointer-events: none;
-    }
-
     .pr-content {
-      position: relative;
-      z-index: 2;
       max-width: 1200px;
       margin: 0 auto;
-      padding: 0 40px;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      box-sizing: border-box;
     }
     .pr-header {
-      position: absolute;
-      top: 60px;
-      left: 40px;
-      right: 40px;
-      margin-bottom: 0;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 24px;
-      z-index: 3;
+      margin-bottom: 48px;
     }
-    
-    .pr-list {
-      position: relative;
+    .pr-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    .pr-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform 0.3s, background 0.3s, border-color 0.3s;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      will-change: transform;
-    }
-
-    .pr-row {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 24px;
       text-decoration: none;
-      padding: 16px 20px;
-      margin: 0 -20px;
-      border-radius: 12px;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      opacity: 0.15;
-      transform: translateY(0);
-      background: transparent;
-      transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), padding-left 0.4s ease, border-color 0.4s ease, background 0.4s ease;
-      cursor: pointer;
     }
-    .pr-row:first-child {
-      border-top: none;
-    }
-    .pr-row:hover {
-      background: rgba(255, 255, 255, 0.05);
-      transform: scale(1.02);
-      opacity: 0.8;
-    }
-    .pr-row.active {
-      opacity: 1;
-      transform: scale(1.02) translateX(10px);
-      background: rgba(255, 255, 255, 0.03);
+    .pr-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.04);
       border-color: var(--accent);
     }
-    .pr-row.active:hover {
-      background: rgba(255, 255, 255, 0.08);
-      transform: scale(1.03) translateX(12px);
+    .pr-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
-    .pr-row:hover .pr-title, .pr-row.active .pr-title {
-      color: var(--accent);
-      transform: translateX(8px);
+    .pr-card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
-    
-    .pr-title {
-      font-size: clamp(18px, 2.5vw, 32px);
+    .pr-card-title {
+      font-size: clamp(20px, 2.5vw, 24px);
       font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.1;
       color: #fff;
-      transition: color 0.4s ease, transform 0.4s ease;
-      flex: 0 0 35%;
-      text-align: left;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
     }
-    .pr-stack {
+    .pr-card-stack {
       font-family: var(--mono);
       font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: rgba(255, 255, 255, 0.6);
-      transition: color 0.4s ease;
-      flex: 1;
-      text-align: left;
+      margin-bottom: 24px;
+      line-height: 1.5;
     }
-    .pr-row:hover .pr-stack, .pr-row.active .pr-stack {
-      color: rgba(255, 255, 255, 0.9);
-    }
-
-    .pr-link-icon {
-      margin-top: 0;
+    .pr-card-link {
+      margin-top: auto;
       display: inline-flex;
       align-items: center;
-      justify-content: flex-start;
       gap: 8px;
       font-family: var(--mono);
       font-size: 11px;
@@ -1255,74 +1184,34 @@
       text-transform: uppercase;
       color: #ffffff;
       transition: color 0.2s;
-      flex: 0 0 auto;
     }
-    .pr-row.active .pr-link-icon {
+    .pr-card:hover .pr-card-link {
       color: var(--accent);
     }
-
-    .rp-community-strip {
-      margin-top: 15vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      position: relative;
-      z-index: 2;
+    .pr-card.hidden {
+      display: none;
     }
-    .rp-comm-item {
-      padding: 28px 32px;
+    .pr-load-more-wrap {
       display: flex;
-      align-items: flex-start;
-      gap: 16px;
+      justify-content: center;
+      margin-top: 48px;
     }
-    .rp-comm-item:first-child {
-      border-right: 1px solid rgba(255, 255, 255, 0.08);
-    }
-    .rp-comm-num {
-      font-family: var(--mono);
-      font-size: 11px;
-      color: var(--accent);
+    .pr-load-more {
+      padding: 12px 32px;
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 100px;
+      font-size: 14px;
       font-weight: 500;
-      letter-spacing: 0.06em;
-      flex-shrink: 0;
-      margin-top: 4px;
+      color: rgba(255,255,255,0.7);
+      background: transparent;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: all 0.25s;
     }
-    .rp-comm-name {
-      font-size: 16px;
-      font-weight: 700;
-      color: #ffffff;
-    }
-    .rp-comm-desc {
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.5);
-      line-height: 1.5;
-    }
-
-    @media (max-width: 768px) {
-      .pr-content {
-        padding: 0 20px;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        box-sizing: border-box;
-      }
-      .pr-header {
-        position: absolute;
-        top: 30px;
-        left: 20px;
-        right: 20px;
-        z-index: 3;
-      }
-      .pr-list { gap: 16px; }
-      .pr-row { padding: 16px 0; flex-direction: column; align-items: flex-start; gap: 8px; }
-      .pr-row:hover, .pr-row.active { padding-left: 12px; }
-      .pr-title { font-size: clamp(20px, 6vw, 32px); flex: none; }
-      .pr-stack { text-align: left; flex: none; }
-      .pr-link-icon { flex: none; justify-content: flex-start; margin-top: 4px; }
-      .rp-community-strip { grid-template-columns: 1fr; }
-      .rp-comm-item:first-child { border-right: none; border-bottom: 1px solid rgba(255, 255, 255, 0.08); }
+    .pr-load-more:hover {
+      border-color: rgba(255,255,255,0.7);
+      color: #fff;
+      transform: translateY(-2px);
     }
 
     /* ============================================================
@@ -1540,6 +1429,10 @@
       }
     }
 
+    @media (max-width: 1024px) {
+      .pr-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
       /* ── Nav ── */
       #nav { gap: 8px; padding: 4px 4px 4px 14px; top: 12px; }
@@ -1558,17 +1451,13 @@
       .nav-right { grid-column: 2; }
 
       /* ── Hero ── */
-      /* Break name to 2 lines naturally — far cleaner than the auto-pan */
-      .hero-name {
-        white-space: normal;
-        font-size: clamp(52px, 17vw, 120px);
-        padding-left: 20px;
-        line-height: 0.88;
-      }
-      /* Social links overlap the name on mobile — contact section covers this */
-      .hero-social { display: none; }
-      .hero-title { padding: 0 20px 8px 20px; font-size: 13px; }
-
+      .hero-grid { grid-template-columns: 1fr; gap: 30px; }
+      .hero-left { padding-right: 0; margin-top: 100px; align-items: center; text-align: center; }
+      .hero-right { height: 40vh; width: 100%; }
+      .hero-h1 { font-size: clamp(42px, 12vw, 80px); }
+      .hero-sub { text-align: center; }
+      .hero-tech-stack { justify-content: center; }
+      
       /* ── Intro ── */
       #intro { padding: 72px 20px; }
       /* !important needed to override inline grid style on .intro-inner */
@@ -1616,43 +1505,8 @@
 
       /* ── Recent Projects ── */
       #recent-projects { padding: 72px 20px; }
-      .rp-header { flex-direction: column; gap: 8px; }
-      .rp-h2 { font-size: clamp(28px, 7.5vw, 44px); }
-      .rp-container {
-        grid-template-columns: 1fr;
-        gap: 24px;
-        margin-top: 24px;
-      }
-      .rp-categories {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 16px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        padding-bottom: 16px;
-      }
-      .rp-category {
-        padding: 6px 0;
-      }
-      .rp-row {
-        grid-template-columns: 1fr;
-        gap: 12px;
-        padding: 20px 0;
-      }
-      .rp-row.active .rp-title {
-        transform: none;
-      }
-      .rp-desc-wrap {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 12px;
-      }
-      .rp-community-strip {
-        grid-template-columns: 1fr;
-      }
-      .rp-comm-item:first-child {
-        border-right: none;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      }
+      .pr-grid { grid-template-columns: 1fr; gap: 24px; }
+      .pr-card-img { height: 200px; }
 
       /* ── Tools ── */
       #tools { padding: 56px 20px; }
@@ -1688,7 +1542,7 @@
   </div>
 
   <!-- ===== NAVIGATION ===== -->
-  <nav id="nav" aria-label="Section navigation">
+  <nav id="nav" aria-label="Section navigation" style="opacity: 0; visibility: hidden; pointer-events: none;">
     <a href="#hero" class="nav-logo" aria-label="Home">Bharath<span class="nav-dot">.</span></a>
     <ul class="nav-pill" role="list">
       <li><a href="#about"        data-target="about">About</a></li>
@@ -1703,35 +1557,29 @@
 
   <!-- ===== HERO ===== -->
   <section id="hero">
-    <!-- Base: orange/warm photo (replaced with video with image fallback) -->
-    <div class="hero-photo-wrap">
-      <video id="hero-video" autoplay loop muted playsinline poster="./assets/seq/Frontview.png">
-        <source src="./assets/Use_this_image_and_make_a_vide.mp4" type="video/mp4">
-      </video>
+    <div class="hero-grid">
+      <!-- Left Column: 60% -->
+      <div class="hero-left" id="hero-text-content">
+        <span class="hero-tagline">WordPress & Frontend Developer</span>
+        <h1 class="hero-h1">Bharath</h1>
+        <p class="hero-sub">
+          I engineer high-performance websites using custom code to eliminate plugin bloat, delivering secure, pixel-perfect solutions optimized for maximum speed.
+        </p>
+        <a href="./assets/Bharath_CV.pdf" id="download-cv-btn" class="hero-cta" download>Download CV</a>
+        <div class="hero-tech-stack">
+          <span>WordPress</span> <span class="dot">•</span> <span>Shopify</span> <span class="dot">•</span> <span>Frontend Frameworks</span>
+        </div>
+      </div>
+
+      <!-- Right Column: 40% -->
+      <div class="hero-right">
+        <div id="media-frame"></div>
+      </div>
     </div>
 
-    <!-- WebGL fluid reveal canvas (three-skull fluid sim) -->
-    <canvas id="hero-gl"></canvas>
-
-    <!-- Social links — left -->
-    <div class="hero-social">
-      <a href="https://www.linkedin.com/in/bharathsarangan/" target="_blank" rel="noopener">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
-        Linkedin
-      </a>
-      <a href="mailto:bharathsarangan1@gmail.com">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Email
-      </a>
-      <a href="tel:+919843907646">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.4 2 2 0 0 1 3.6 2.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.12 6.12l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-        Phone
-      </a>
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="scroll-hint">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <!-- Full-screen absolute overlay containing the media -->
+    <div id="media-overlay">
+      <img src="./assets/seq/Frontview.png" alt="Bharath" />
     </div>
   </section>
 
@@ -1781,6 +1629,7 @@
   <div class="numbered-section exp-fit">
     <!-- WebGL orange cylinders grid (threejs-components Grid2Background) -->
     <canvas id="exp-cyl-canvas" aria-hidden="true"></canvas>
+    <div style="position: absolute; inset: 0; background: rgba(17, 17, 17, 0.3); z-index: 1; pointer-events: none;"></div>
 
     <div class="exp-content">
       <div class="ns-header">
@@ -1879,11 +1728,7 @@
             <div class="exp-impact" style="margin-top:16px;">
               <div class="exp-impact-row">
                 <div class="impact-dot"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-                <span>Coordinated seamlessly with the <strong>MERN Stack</strong> team to align frontend architecture with backend systems.</span>
-              </div>
-              <div class="exp-impact-row">
-                <div class="impact-dot"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-                <span>Learned and implemented modern web technologies including <strong>React.js and Next.js</strong> for interactive elements.</span>
+                <span>Successfully completed major timely deliveries including high-volume structures of <strong>70+ developed pages</strong>.</span>
               </div>
               <div class="exp-impact-row">
                 <div class="impact-dot"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
@@ -1891,12 +1736,15 @@
               </div>
               <div class="exp-impact-row">
                 <div class="impact-dot"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-                <span>Successfully completed major timely deliveries including high-volume structures of <strong>70+ developed pages</strong>.</span>
+                <span>Coordinated seamlessly with the <strong>MERN Stack</strong> team to align frontend architecture with backend systems.</span>
               </div>
               <div class="exp-impact-row">
                 <div class="impact-dot"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-                <span>Integrated <strong>AI-driven workflows</strong> to achieve rapid, productive development cycles and bug-fixing pipelines.</span>
+                <span>Learned and implemented modern web technologies including <strong>React.js and Next.js</strong> for interactive elements.</span>
               </div>
+              
+              
+              
             </div>
           </div>
           <div class="exp-right">
@@ -1906,7 +1754,6 @@
               <span class="exp-tag">React.js</span>
               <span class="exp-tag">Next.js</span>
               <span class="exp-tag">Shopify</span>
-              <span class="exp-tag">AI Workflows</span>
             </div>
           </div>
         </div>
@@ -1964,19 +1811,18 @@
   </section>
 
   <!-- ===== RECENT PROJECTS ===== -->
-  <section id="recent-projects" class="projects-wrapper">
-    <div class="pr-sticky-bg" id="pr-bg-container">
-      <!-- Background images will be injected here by JS -->
-      <div class="pr-overlay"></div>
-    </div>
-
+  <section id="recent-projects">
     <div class="pr-content">
       <div class="pr-header reveal">
         <span class="sec-label" style="color: rgba(255,255,255,0.45);">Recent Projects</span>
       </div>
 
-      <div class="pr-list" id="pr-list-container">
-        <!-- List items will be injected here by JS -->
+      <div class="pr-grid" id="pr-list-container">
+        <!-- Cards will be injected here by JS -->
+      </div>
+
+      <div class="pr-load-more-wrap" id="pr-load-more-wrap">
+        <button class="pr-load-more" id="pr-load-more-btn">Load More</button>
       </div>
     </div>
   </section>
@@ -2145,6 +1991,15 @@
       const splashBar = document.getElementById('splash-bar');
       let   splashDone = false;
 
+      // Prepare initial navigation state to prevent CSS transition conflicts during GSAP animation
+      const nav = document.getElementById('nav');
+      let navItems = [];
+      if (nav) {
+        navItems = nav.querySelectorAll('.nav-logo, .nav-pill li, .nav-cta');
+        gsap.set(nav, { transition: 'none', xPercent: -50, x: 0, y: -20 });
+        gsap.set(navItems, { transition: 'none' });
+      }
+
       window._dismissSplash = function() {
         if (splashDone || !splashEl) return;
         splashDone = true;
@@ -2153,7 +2008,19 @@
         setTimeout(() => {
           gsap.to(splashEl, {
             opacity: 0, duration: 0.7, ease: 'power2.inOut',
-            onComplete: () => { splashEl.style.display = 'none'; }
+            onComplete: () => { 
+              splashEl.style.display = 'none'; 
+              
+              if (nav) {
+                gsap.to(nav, { autoAlpha: 1, pointerEvents: 'auto', y: 0, duration: 1, ease: 'power3.out', clearProps: 'all' });
+                if (navItems.length) {
+                  gsap.fromTo(navItems, 
+                    { opacity: 0, y: -15 },
+                    { opacity: 1, y: 0, duration: 0.8, stagger: 0.08, ease: 'back.out(1.7)', clearProps: 'all' }
+                  );
+                }
+              }
+            }
           });
         }, 300);
       };
@@ -2328,488 +2195,63 @@
       });
     });
 
-    // Hero video parallax (fallback layer — WebGL canvas handles display when active)
-    gsap.to('#hero-video', {
-      yPercent: 12,
-      ease: 'none',
-      scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+    // Trigger splash check for hero right away, since we no longer wait for Three JS
+    window._readyFlags.hero = true;
+    if(window._checkAllReady) window._checkAllReady();
+
+    // GSAP Entrance Animation
+    window.addEventListener('load', () => {
+      const overlay = document.getElementById('media-overlay');
+      const frame = document.getElementById('media-frame');
+      const heroContent = document.getElementById('hero-text-content');
+      const leftTextElements = document.querySelectorAll('#hero-text-content > *');
+      const hero = document.getElementById('hero');
+
+      // Ensure container is visible, children hidden
+      gsap.set(heroContent, { opacity: 1 });
+      gsap.set(leftTextElements, { opacity: 0, y: 30 });
+
+      // Initial scale of 2
+      gsap.set(overlay, { scale: 2 });
+
+      const tl = gsap.timeline({
+        delay: 0.2, // slight delay after load
+        onComplete: () => {
+          // Reparent the overlay to media-frame to finalize structure
+          gsap.set(overlay, { clearProps: "all" });
+          overlay.style.position = "relative";
+          overlay.style.width = "100%";
+          overlay.style.height = "100%";
+          overlay.style.zIndex = "1";
+          frame.appendChild(overlay);
+        }
+      });
+
+      // Calculate relative bounds
+      const frameRect = frame.getBoundingClientRect();
+      const heroRect = hero.getBoundingClientRect();
+
+      const targetTop = frameRect.top - heroRect.top;
+      const targetLeft = frameRect.left - heroRect.left;
+
+      tl.to(overlay, {
+        scale: 1,
+        top: targetTop,
+        left: targetLeft,
+        width: frameRect.width,
+        height: frameRect.height,
+        borderRadius: "12px", // match frame border radius
+        duration: 1.8,
+        ease: "expo.inOut"
+      })
+      .to(leftTextElements, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.15,
+        duration: 1,
+        ease: "power3.out"
+      }, "-=0.8");
     });
-
-    // ── WebGL Fluid Reveal  (adapted from three-skull by cullenwebber) ──────────
-    (function () {
-      'use strict';
-
-      function initFluid() {
-      const canvas  = document.getElementById('hero-gl');
-      const heroEl  = document.getElementById('hero');
-      if (!canvas || !heroEl) return;
-
-      // Size canvas BEFORE creating any GL objects — setting canvas.width/height
-      // after GL context creation resets all GL state (programs, FBOs, textures).
-      canvas.width  = heroEl.clientWidth  || window.innerWidth;
-      canvas.height = heroEl.clientHeight || window.innerHeight;
-
-      // ── WebGL context ───────────────────────────────────────────────────────────
-      const gl = canvas.getContext('webgl',              { alpha: true, antialias: false, depth: false }) ||
-                 canvas.getContext('experimental-webgl', { alpha: true, antialias: false, depth: false });
-      if (!gl) return;
-
-      // Enable pointer events on hero so mouse events fire (canvas has pointer-events:none in CSS)
-
-      // ── Constants ───────────────────────────────────────────────────────────────
-      const SIM_W = 512;
-      const SIM_H = 512;
-      const LWIDTH = SIM_W * 0.20; // trail line width in sim-px (~100px)
-
-      // ── Off-screen trail canvas (2D, sim resolution) ────────────────────────────
-      const trailCanvas = document.createElement('canvas');
-      trailCanvas.width  = SIM_W;
-      trailCanvas.height = SIM_H;
-      const tc = trailCanvas.getContext('2d');
-
-      // Trail state
-      let trailX = -1, trailY = -1;  // lerped position in normalised [0-1]
-      let rawX   = -1, rawY   = -1;  // latest mouse position in normalised [0-1]
-      let hasPos = false;
-
-      // ── Shader sources ──────────────────────────────────────────────────────────
-      const VS = `
-        attribute vec2 a_pos;
-        varying vec2 v_uv;
-        void main(){
-          v_uv = a_pos * 0.5 + 0.5;
-          gl_Position = vec4(a_pos, 0.0, 1.0);
-        }
-      `;
-
-      // Fluid simulation step
-      // White = no ink (base visible), Black = full ink (reveal visible)
-      // FBM-displaced neighbour sampling → darken blend → trail input → fade to white
-      const SIM_FS = `
-        precision highp float;
-        varying vec2 v_uv;
-        uniform sampler2D u_prev;
-        uniform sampler2D u_trail;
-        uniform vec2 u_res;
-        uniform float u_time;
-
-        float hash(vec2 p){
-          p = fract(p * vec2(234.34,435.345));
-          p += dot(p, p + 34.23);
-          return fract(p.x * p.y);
-        }
-        float noise(vec2 p){
-          vec2 i = floor(p);
-          vec2 f = fract(p);
-          f = f*f*(3.0-2.0*f);
-          return mix(
-            mix(hash(i),           hash(i+vec2(1.0,0.0)), f.x),
-            mix(hash(i+vec2(0.0,1.0)), hash(i+vec2(1.0,1.0)), f.x),
-            f.y
-          );
-        }
-        float fbm(vec2 p){
-          float v=0.0; float a=0.5;
-          for(int i=0;i<4;i++){ v+=a*noise(p); p*=2.0; a*=0.5; }
-          return v;
-        }
-
-        void main(){
-          vec2 px = 1.0 / u_res;
-          float disp = fbm(v_uv * 3.5 + u_time * 0.12) * 2.0 - 1.0;
-          vec2 off = vec2(disp) * px * 4.5;
-
-          float c  = texture2D(u_prev, v_uv + off).r;
-          float cN = texture2D(u_prev, v_uv + vec2(0.0, px.y) + off).r;
-          float cS = texture2D(u_prev, v_uv - vec2(0.0, px.y) + off).r;
-          float cE = texture2D(u_prev, v_uv + vec2(px.x, 0.0) + off).r;
-          float cW = texture2D(u_prev, v_uv - vec2(px.x, 0.0) + off).r;
-
-          // Darken spread — ink bleeds outward
-          float blended = min(c, min(min(cN,cS), min(cE,cW)));
-
-          // Trail: canvas is white bg (r=1) + black stroke (r=0) → ink = 1-r
-          float ink = 1.0 - texture2D(u_trail, v_uv).r;
-          blended = min(blended, 1.0 - ink * 0.96);
-
-          // Fade toward white each frame
-          blended += 0.0085;
-          gl_FragColor = vec4(vec3(clamp(blended,0.0,1.0)), 1.0);
-        }
-      `;
-
-      // Final composite: orange base × B&W reveal, mixed by fluid mask
-      // Includes bottom vignette to keep name text legible
-      const COMP_FS = `
-        precision highp float;
-        varying vec2 v_uv;
-        uniform sampler2D u_base;
-        uniform sampler2D u_reveal;
-        uniform sampler2D u_fluid;
-        uniform vec2 u_baseSize;
-        uniform vec2 u_revealSize;
-        uniform vec2 u_canvas;
-
-        // CSS object-fit:cover UV mapping
-        // Multiply by s (<1) to crop the excess, keeping the centre visible
-        vec2 coverUV(vec2 uv, vec2 img, vec2 cvs){
-          float ia = img.x / img.y;
-          float ca = cvs.x / cvs.y;
-          // s = fraction of image shown in each axis (< 1 means that axis is cropped)
-          vec2 s = (ia > ca) ? vec2(ca/ia, 1.0) : vec2(1.0, ia/ca);
-          // flip Y: v_uv.y=0 is quad bottom; image y=0 is top of image
-          vec2 fuv = vec2(uv.x, 1.0 - uv.y);
-          return (fuv - 0.5) * s + 0.5;
-        }
-
-        void main(){
-          vec2 baseUV   = coverUV(v_uv, u_baseSize, u_canvas);
-          vec2 revealUV = coverUV(v_uv, u_revealSize, u_canvas);
-
-          vec3 base = texture2D(u_base, baseUV).rgb;
-
-          // B&W + slight contrast boost for reveal layer
-          vec3 rev  = texture2D(u_reveal, revealUV).rgb;
-          float lum = dot(rev, vec3(0.299, 0.587, 0.114));
-          lum = clamp((lum - 0.5) * 1.1 + 0.5, 0.0, 1.0);
-          rev = vec3(lum);
-
-          // fluid mask: 1=full base (orange), 0=full reveal (B&W)
-          float mask = texture2D(u_fluid, v_uv).r;
-          vec3 color = mix(rev, base, mask);
-
-          // Bottom vignette  (v_uv.y=0 is bottom of quad)
-          float vf = max(0.0, 1.0 - v_uv.y / 0.65);
-          float va = vf * vf * 0.76;
-          color = mix(color, vec3(17.0/255.0), va);
-
-          gl_FragColor = vec4(color, 1.0);
-        }
-      `;
-
-      // ── Compile / link helpers ───────────────────────────────────────────────────
-      function compile(type, src){
-        const s = gl.createShader(type);
-        gl.shaderSource(s, src);
-        gl.compileShader(s);
-        if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)){
-          console.error('Shader error:', gl.getShaderInfoLog(s));
-          gl.deleteShader(s); return null;
-        }
-        return s;
-      }
-      function linkProg(vsSrc, fsSrc){
-        const vs = compile(gl.VERTEX_SHADER, vsSrc);
-        const fs = compile(gl.FRAGMENT_SHADER, fsSrc);
-        if(!vs || !fs) return null;
-        const p = gl.createProgram();
-        gl.attachShader(p, vs);
-        gl.attachShader(p, fs);
-        gl.linkProgram(p);
-        if(!gl.getProgramParameter(p, gl.LINK_STATUS)){
-          console.error('Program error:', gl.getProgramInfoLog(p));
-          return null;
-        }
-        return p;
-      }
-
-      const simProg  = linkProg(VS, SIM_FS);
-      const compProg = linkProg(VS, COMP_FS);
-      if(!simProg || !compProg) return;
-
-      // ── Fullscreen quad ─────────────────────────────────────────────────────────
-      const quadBuf = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, quadBuf);
-      gl.bufferData(gl.ARRAY_BUFFER,
-        new Float32Array([-1,-1, 1,-1, -1,1, 1,1]),
-        gl.STATIC_DRAW);
-
-      function bindQuad(prog){
-        const loc = gl.getAttribLocation(prog, 'a_pos');
-        gl.bindBuffer(gl.ARRAY_BUFFER, quadBuf);
-        gl.enableVertexAttribArray(loc);
-        gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
-      }
-
-      // ── FBO helpers ─────────────────────────────────────────────────────────────
-      function makeFBO(w, h){
-        const tex = gl.createTexture();
-        gl.bindTexture(gl.TEXTURE_2D, tex);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, w, h, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-        const fbo = gl.createFramebuffer();
-        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-        gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, tex, 0);
-        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-        return { tex, fbo };
-      }
-
-      // Ping-pong FBOs (initialise white = 1.0 = full orange base visible)
-      let fboA = makeFBO(SIM_W, SIM_H);
-      let fboB = makeFBO(SIM_W, SIM_H);
-      function clearFBO(fbo){
-        gl.bindFramebuffer(gl.FRAMEBUFFER, fbo.fbo);
-        gl.clearColor(1, 1, 1, 1);
-        gl.clear(gl.COLOR_BUFFER_BIT);
-        gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-      }
-      clearFBO(fboA);
-      clearFBO(fboB);
-
-      // ── Trail texture (updated from trailCanvas every frame) ─────────────────────
-      const trailTex = gl.createTexture();
-      function initTrailTex(){
-        gl.bindTexture(gl.TEXTURE_2D, trailTex);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, SIM_W, SIM_H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      }
-      initTrailTex();
-
-      // ── Image texture loader ─────────────────────────────────────────────────────
-      function uploadTex(tex, img) {
-        gl.bindTexture(gl.TEXTURE_2D, tex);
-        gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false); // y-flip handled in coverUV shader
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-      }
-
-      function loadTex(src) {
-        return new Promise(resolve => {
-          const tex = gl.createTexture();
-          // Try as a DOM img element already in the page first (avoids CORS issues on file://)
-          const domImg = document.querySelector('img[src*="' + src.split('/').pop() + '"]');
-          if (domImg && domImg.complete && domImg.naturalWidth) {
-            try { uploadTex(tex, domImg); return resolve({ tex, w: domImg.naturalWidth, h: domImg.naturalHeight }); }
-            catch(e) { /* fall through to fresh load */ }
-          }
-          // Fresh image load
-          const img = new Image();
-          img.onload = () => {
-            try {
-              uploadTex(tex, img);
-              resolve({ tex, w: img.naturalWidth, h: img.naturalHeight });
-            } catch(e) {
-              console.warn('[fluid-reveal] texImage2D failed:', e);
-              resolve(null);
-            }
-          };
-          img.onerror = () => resolve(null);
-          img.src = src;
-        });
-      }
-
-      // canvas was already sized above — no resize handler needed
-      // (canvas.width = N resets GL state, so we set it once before GL init)
-
-      // ── Mouse tracking ──────────────────────────────────────────────────────────
-      heroEl.addEventListener('mousemove', e => {
-        const r = heroEl.getBoundingClientRect();
-        rawX = (e.clientX - r.left) / r.width;
-        rawY = (e.clientY - r.top)  / r.height;
-        hasPos = true;
-      });
-      heroEl.addEventListener('mouseleave', () => {
-        hasPos = false;
-        trailX = -1; trailY = -1;
-      });
-
-      // ── Cached uniform locations ─────────────────────────────────────────────────
-      const simU = {
-        prev:  gl.getUniformLocation(simProg,  'u_prev'),
-        trail: gl.getUniformLocation(simProg,  'u_trail'),
-        res:   gl.getUniformLocation(simProg,  'u_res'),
-        time:  gl.getUniformLocation(simProg,  'u_time'),
-      };
-      const compU = {
-        base:       gl.getUniformLocation(compProg, 'u_base'),
-        reveal:     gl.getUniformLocation(compProg, 'u_reveal'),
-        fluid:      gl.getUniformLocation(compProg, 'u_fluid'),
-        baseSize:   gl.getUniformLocation(compProg, 'u_baseSize'),
-        revealSize: gl.getUniformLocation(compProg, 'u_revealSize'),
-        canvas:     gl.getUniformLocation(compProg, 'u_canvas'),
-      };
-
-      const video = document.getElementById('hero-video');
-      if (video) {
-        video.play().catch(e => console.warn("Video play failed or auto-started:", e));
-      }
-      const baseTex = gl.createTexture();
-      gl.bindTexture(gl.TEXTURE_2D, baseTex);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-      gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-
-      // ── Main render loop ──────────────────────────────────────────────────────
-      let t0 = null;
-      const splashStart = performance.now();
-      const SPLASH_MIN  = 800;
-
-      // Load base image first — unblocks splash as soon as hero is ready.
-      // Seq frames load in parallel but do NOT gate the splash.
-      const seqPaths = [
-        './assets/seq/Frontview.png','./assets/seq/Frontview-topright.png','./assets/seq/frontview-topleft.png',
-        './assets/seq/frontview-bottomleft.png','./assets/seq/frontview-bottomright.png',
-      ];
-      let seqFrames = [];
-      seqPaths.forEach(p => loadTex(p).then(t => { if (t) seqFrames.push(t); }));
-
-      loadTex('./assets/seq/Frontview.png').then(base => {
-        // Base image ready — hero can render, dismiss splash
-        const elapsed = performance.now() - splashStart;
-        const wait    = Math.max(0, SPLASH_MIN - elapsed);
-        setTimeout(() => {
-          window._readyFlags.hero = true;
-          window._checkAllReady();
-        }, wait);
-
-        // Base must load — without it, no effect possible
-        if (!base) {
-          console.warn('[fluid-reveal] Base image failed — CSS fallback active.');
-          return;
-        }
-
-        // seqFrames populated async in background; fall back to base until ready
-        if (seqFrames.length === 0) seqFrames.push(base);
-
-        // ── Sequence animation state ──────────────────────────────────────────
-        let seqIdx      = 0;
-        let lastSeqTime = 0;
-        const SEQ_INTERVAL = 300; // ms per frame ≈ ~3 fps loop
-
-        function frame(ts){
-          requestAnimationFrame(frame);
-          if(t0 === null) t0 = ts;
-          const t = (ts - t0) * 0.001;
-
-          // Advance sequence frame on timer
-          if (ts - lastSeqTime >= SEQ_INTERVAL) {
-            seqIdx = (seqIdx + 1) % seqFrames.length;
-            lastSeqTime = ts;
-          }
-          const revealFrame = seqFrames[seqIdx];
-
-          // ── 1. Update trail canvas ───────────────────────────────
-          tc.fillStyle = '#ffffff';
-          tc.fillRect(0, 0, SIM_W, SIM_H);
-
-          if(hasPos){
-            const LERP = 0.14;
-            if(trailX < 0){ trailX = rawX; trailY = rawY; }
-            else {
-              trailX += (rawX - trailX) * LERP;
-              trailY += (rawY - trailY) * LERP;
-            }
-            // 2D canvas has y=0 at TOP; WebGL texture y=0 maps to canvas TOP,
-            // but v_uv.y=0 is the BOTTOM of the screen.
-            // Flip Y so trail appears at the correct screen position.
-            const sx = trailX * SIM_W,  sy = (1.0 - trailY) * SIM_H;
-            const rx = rawX   * SIM_W,  ry = (1.0 - rawY)   * SIM_H;
-
-            // Thick line from lerped → raw
-            tc.strokeStyle = '#000000';
-            tc.lineWidth   = LWIDTH;
-            tc.lineCap     = 'round';
-            tc.lineJoin    = 'round';
-            tc.beginPath();
-            tc.moveTo(sx, sy);
-            tc.lineTo(rx, ry);
-            tc.stroke();
-
-            // Solid circle at raw cursor tip
-            tc.fillStyle = '#000000';
-            tc.beginPath();
-            tc.arc(rx, ry, LWIDTH * 0.55, 0, Math.PI * 2);
-            tc.fill();
-          }
-
-          // Upload trail canvas → GPU texture
-          gl.bindTexture(gl.TEXTURE_2D, trailTex);
-          gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, trailCanvas);
-
-          // ── 2. Fluid sim step (render into fboB, read from fboA) ─
-          gl.useProgram(simProg);
-          bindQuad(simProg);
-          gl.viewport(0, 0, SIM_W, SIM_H);
-          gl.bindFramebuffer(gl.FRAMEBUFFER, fboB.fbo);
-
-          gl.activeTexture(gl.TEXTURE0);
-          gl.bindTexture(gl.TEXTURE_2D, fboA.tex);
-          gl.uniform1i(simU.prev, 0);
-
-          gl.activeTexture(gl.TEXTURE1);
-          gl.bindTexture(gl.TEXTURE_2D, trailTex);
-          gl.uniform1i(simU.trail, 1);
-
-          gl.uniform2f(simU.res,  SIM_W, SIM_H);
-          gl.uniform1f(simU.time, t);
-
-          gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-
-          // Swap ping-pong buffers
-          const tmp = fboA; fboA = fboB; fboB = tmp;
-
-          // ── 3. Composite to display canvas ───────────────────────
-          gl.useProgram(compProg);
-          bindQuad(compProg);
-          gl.viewport(0, 0, canvas.width, canvas.height);
-          gl.bindFramebuffer(gl.FRAMEBUFFER, null);
-
-          let useVideo = false;
-          if (video && video.readyState >= video.HAVE_CURRENT_DATA) {
-            gl.bindTexture(gl.TEXTURE_2D, baseTex);
-            gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, false);
-            gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, video);
-            useVideo = true;
-          }
-
-          gl.activeTexture(gl.TEXTURE0);
-          if (useVideo) {
-            gl.bindTexture(gl.TEXTURE_2D, baseTex);
-          } else {
-            gl.bindTexture(gl.TEXTURE_2D, base.tex);
-          }
-          gl.uniform1i(compU.base, 0);
-
-          gl.activeTexture(gl.TEXTURE1);
-          gl.bindTexture(gl.TEXTURE_2D, revealFrame.tex);
-          gl.uniform1i(compU.reveal, 1);
-
-          gl.activeTexture(gl.TEXTURE2);
-          gl.bindTexture(gl.TEXTURE_2D, fboA.tex);
-          gl.uniform1i(compU.fluid, 2);
-
-          gl.uniform2f(compU.baseSize,   useVideo ? video.videoWidth : base.w, useVideo ? video.videoHeight : base.h);
-          gl.uniform2f(compU.revealSize, revealFrame.w, revealFrame.h);
-          gl.uniform2f(compU.canvas, canvas.width, canvas.height);
-
-          gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-        }
-
-        requestAnimationFrame(frame);
-      }).catch(err => {
-        console.warn('[fluid-reveal] Unexpected error:', err);
-        window._readyFlags.hero = true;
-        window._checkAllReady();
-      });
-
-      } // end initFluid
-
-      if (document.readyState === 'complete') {
-        initFluid();
-      } else {
-        window.addEventListener('load', initFluid);
-      }
-    })();
       (function () {
         'use strict';
         if (!window.gsap || !window.ScrollTrigger) return;
@@ -3245,7 +2687,7 @@
         });
       })();
 
-      // ── Recent Projects Scroll-Linked Pinned Animation ───────────────────
+      // ── Recent Projects Cards & Load More ───────────────────
       (function () {
         'use strict';
 
@@ -3275,191 +2717,68 @@
           { title: 'Sinternationals', stack: 'WordPress, Elementor', link: 'https://sinternationals.com/', linkText: 'View Live', image: './assets/Vibesec/sinternational.png', repo: false }
         ];
 
-        const bgContainer = document.getElementById('pr-bg-container');
         const listContainer = document.getElementById('pr-list-container');
+        const loadMoreWrap = document.getElementById('pr-load-more-wrap');
+        const loadMoreBtn = document.getElementById('pr-load-more-btn');
         
-        if (bgContainer && listContainer) {
-          // Find the overlay so we can insert bgs before it
-          const overlay = bgContainer.querySelector('.pr-overlay');
-          
+        if (listContainer) {
           projectsData.forEach((proj, idx) => {
-            // Create background element
-            const bgEl = document.createElement('div');
-            bgEl.className = `pr-bg-img ${idx === 0 ? 'active' : ''}`;
-            bgEl.id = `pr-bg-${idx}`;
-            bgEl.style.backgroundImage = `url('${proj.image}')`;
-            bgContainer.insertBefore(bgEl, overlay);
-
-            // Create list element
             const aEl = document.createElement('a');
             aEl.href = proj.link || 'javascript:void(0)';
             if(proj.link && proj.link !== 'javascript:void(0)') {
               aEl.target = '_blank';
               aEl.rel = 'noopener';
             }
-            aEl.className = `pr-row ${idx === 0 ? 'active' : ''}`;
-            aEl.setAttribute('data-idx', idx);
+            aEl.className = `pr-card ${idx >= 6 ? 'hidden' : ''}`;
             
             let iconHtml = '';
             if (proj.linkText) {
-              iconHtml = `<div class="pr-link-icon">${proj.linkText} <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>`;
+              iconHtml = `<div class="pr-card-link">${proj.linkText} <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg></div>`;
             }
             
             aEl.innerHTML = `
-              <h3 class="pr-title">${proj.title}</h3>
-              <p class="pr-stack">${proj.stack}</p>
-              ${iconHtml}
+              <img src="${proj.image}" alt="${proj.title}" class="pr-card-img" loading="lazy" />
+              <div class="pr-card-body">
+                <h3 class="pr-card-title">${proj.title}</h3>
+                <p class="pr-card-stack">${proj.stack}</p>
+                ${iconHtml}
+              </div>
             `;
             listContainer.appendChild(aEl);
           });
-        }
 
-        const prRows = document.querySelectorAll('.pr-row');
-        const prBgs = document.querySelectorAll('.pr-bg-img');
-        
-        if (prRows.length > 0 && prBgs.length > 0) {
-          let scrollTriggerInstance = null;
-          let currentScrollActiveIdx = 0;
-          let hoveredIdx = null;
-
-          function updateActiveStyles() {
-            const activeIdx = hoveredIdx !== null ? hoveredIdx : currentScrollActiveIdx;
-            
-            prRows.forEach((r, i) => {
-              if (i === activeIdx) {
-                r.classList.add('active');
-              } else {
-                r.classList.remove('active');
-              }
-            });
-            
-            prBgs.forEach((bg, i) => {
-              if (i === activeIdx) {
-                bg.classList.add('active');
-              } else {
-                bg.classList.remove('active');
-              }
-            });
+        if (projectsData.length <= 6 && loadMoreWrap) {
+            loadMoreWrap.style.display = 'none';
           }
 
-          function scrollToItem(idx) {
-            if (!scrollTriggerInstance) return;
-            const start = scrollTriggerInstance.start;
-            const end = scrollTriggerInstance.end;
-            const scrollDistance = end - start;
-            
-            // Calculate progress for the target item idx
-            const t = idx + 0.25;
-            const progress = t / (prRows.length - 0.5);
-            const targetScroll = start + progress * scrollDistance;
-            
-            const obj = { y: window.pageYOffset || document.documentElement.scrollTop || window.scrollY };
-            gsap.to(obj, {
-              y: targetScroll,
-              duration: 0.8,
-              ease: "power2.out",
-              onUpdate: () => window.scrollTo(0, obj.y),
-              overwrite: "auto"
-            });
-          }
-
-          // Entrance animation for the entire section
-          gsap.from("#recent-projects .pr-sticky-bg", {
-            scrollTrigger: {
-              trigger: "#recent-projects",
-              start: "top 85%",
-              toggleActions: "play none none reverse"
-            },
-            opacity: 0,
-            duration: 1.2,
-            ease: "power3.out"
-          });
-
-          gsap.from("#recent-projects .pr-content", {
-            scrollTrigger: {
-              trigger: "#recent-projects",
-              start: "top 85%",
-              toggleActions: "play none none reverse"
-            },
-            y: 80,
-            opacity: 0,
-            duration: 1.2,
-            ease: "power3.out"
-          });
-
-          function initGSAPScroll() {
-            if (scrollTriggerInstance) {
-              scrollTriggerInstance.kill();
+          if (loadMoreBtn) {
+            loadMoreBtn.addEventListener('click', () => {
+            const hiddenCards = Array.from(listContainer.querySelectorAll('.pr-card.hidden'));
+            const cardsToShow = hiddenCards.slice(0, 6);
+            cardsToShow.forEach((card, i) => {
+                card.classList.remove('hidden');
+                gsap.fromTo(card, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.6, delay: i * 0.1, ease: 'power3.out', clearProps: 'all' });
+              });
+            if (hiddenCards.length <= 6) {
+              loadMoreWrap.style.display = 'none';
             }
-
-            const listHeight = listContainer.offsetHeight;
-            
-            // Build the GSAP timeline
-            const tl = gsap.timeline({
-              scrollTrigger: {
-                trigger: "#recent-projects",
-                start: "top top",
-                end: () => `+=${prRows.length * window.innerHeight * 0.6}`,
-                scrub: 1.5,
-                pin: true,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-                onUpdate: (self) => {
-                  const t = self.progress * (prRows.length - 0.5);
-                  currentScrollActiveIdx = Math.min(Math.floor(t + 0.25), prRows.length - 1);
-                  updateActiveStyles();
-                }
-              }
-            });
-
-            scrollTriggerInstance = tl.scrollTrigger;
-
-            // Animate translation of the list container to center each row
-            prRows.forEach((row, idx) => {
-              const rowCenter = row.offsetTop + row.offsetHeight / 2;
-              const targetY = (listHeight / 2) - rowCenter;
-              
-              if (idx === 0) {
-                tl.set(listContainer, { y: targetY });
-                tl.to({}, { duration: 0.5 }); // Dwell on first item
-              } else {
-                tl.to(listContainer, {
-                  y: targetY,
-                  duration: 0.5,
-                  ease: "power2.inOut"
-                });
-                tl.to({}, { duration: 0.5 }); // Dwell on current item
-              }
+              ScrollTrigger.refresh();
             });
           }
 
-          // Attach hover and click listeners
-          prRows.forEach((row, idx) => {
-            row.addEventListener('mouseenter', () => {
-              hoveredIdx = idx;
-              updateActiveStyles();
-            });
-            
-            row.addEventListener('mouseleave', () => {
-              hoveredIdx = null;
-              updateActiveStyles();
-            });
-
-            row.addEventListener('click', (e) => {
-              const isCurrentActive = row.classList.contains('active');
-              const proj = projectsData[idx];
-              if (!isCurrentActive || proj.link === 'javascript:void(0)') {
-                e.preventDefault();
-                scrollToItem(idx);
-              }
-            });
+          // GSAP Entrance Animation
+          gsap.from("#recent-projects .pr-card:not(.hidden)", {
+            scrollTrigger: {
+              trigger: "#recent-projects",
+              start: "top 85%",
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out",
+            clearProps: "all"
           });
-
-          // Execute after images and fonts are loaded for accurate offsets
-          window.addEventListener('load', initGSAPScroll);
-          if (document.readyState === 'complete' || document.readyState === 'interactive') {
-            initGSAPScroll();
-          }
         }
       })();
 
@@ -3507,6 +2826,22 @@
         requestAnimationFrame(tick);
       }
       requestAnimationFrame(tick);
+    })();
+
+    // ── Download CV Button text change ───────────────────────────────────────
+    (function() {
+      const downloadBtn = document.getElementById('download-cv-btn');
+      if (downloadBtn) {
+        downloadBtn.addEventListener('click', function() {
+          const originalText = this.textContent;
+          this.textContent = 'Downloading...';
+          this.style.pointerEvents = 'none'; // Prevents spam clicking
+          setTimeout(() => {
+            this.textContent = originalText;
+            this.style.pointerEvents = 'auto'; // Restores button functionality
+          }, 3000);
+        });
+      }
     })();
   </script>
 
