@@ -387,25 +387,12 @@
       overflow: hidden;
     }
 
-    #media-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      transform-origin: center center;
-    }
-
-    #media-overlay video,
-    #media-overlay img {
+    #media-frame video,
+    #media-frame img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
     }
 
     /* ============================================================
@@ -1565,7 +1552,7 @@
         <p class="hero-sub">
           I engineer high-performance websites using custom code to eliminate plugin bloat, delivering secure, pixel-perfect solutions optimized for maximum speed.
         </p>
-        <a href="https://drive.google.com/file/d/1jIj5BNSuaLyq8HMDf3FhBiOz0RZzG364/view?usp=sharing" target="_blank" id="download-cv-btn" class="hero-cta" download>Download CV</a>
+        <!-- <a href="https://drive.google.com/file/d/1jIj5BNSuaLyq8HMDf3FhBiOz0RZzG364/view?usp=sharing" target="_blank" id="download-cv-btn" class="hero-cta" download style="display: none;">Download CV</a> -->
         <div class="hero-tech-stack">
           <span>WordPress</span> <span class="dot">•</span> <span>Shopify</span> <span class="dot">•</span> <span>Frontend Frameworks</span>
         </div>
@@ -1573,13 +1560,10 @@
 
       <!-- Right Column: 40% -->
       <div class="hero-right">
-        <div id="media-frame"></div>
+        <div id="media-frame">
+          <img src="./assets/seq/Blackwhite.png" alt="Bharath" />
+        </div>
       </div>
-    </div>
-
-    <!-- Full-screen absolute overlay containing the media -->
-    <div id="media-overlay">
-      <img src="./assets/seq/Blackwhite.png" alt="Bharath" />
     </div>
   </section>
 
@@ -2201,56 +2185,21 @@
 
     // GSAP Entrance Animation
     window.addEventListener('load', () => {
-      const overlay = document.getElementById('media-overlay');
-      const frame = document.getElementById('media-frame');
       const heroContent = document.getElementById('hero-text-content');
       const leftTextElements = document.querySelectorAll('#hero-text-content > *');
-      const hero = document.getElementById('hero');
 
-      // Ensure container is visible, children hidden
+      // Ensure container is visible, animate children smoothly into view
       gsap.set(heroContent, { opacity: 1 });
       gsap.set(leftTextElements, { opacity: 0, y: 30 });
 
-      // Initial scale of 2
-      gsap.set(overlay, { scale: 2 });
-
-      const tl = gsap.timeline({
-        delay: 0.2, // slight delay after load
-        onComplete: () => {
-          // Reparent the overlay to media-frame to finalize structure
-          gsap.set(overlay, { clearProps: "all" });
-          overlay.style.position = "relative";
-          overlay.style.width = "100%";
-          overlay.style.height = "100%";
-          overlay.style.zIndex = "1";
-          frame.appendChild(overlay);
-        }
-      });
-
-      // Calculate relative bounds
-      const frameRect = frame.getBoundingClientRect();
-      const heroRect = hero.getBoundingClientRect();
-
-      const targetTop = frameRect.top - heroRect.top;
-      const targetLeft = frameRect.left - heroRect.left;
-
-      tl.to(overlay, {
-        scale: 1,
-        top: targetTop,
-        left: targetLeft,
-        width: frameRect.width,
-        height: frameRect.height,
-        borderRadius: "12px", // match frame border radius
-        duration: 1.8,
-        ease: "expo.inOut"
-      })
-      .to(leftTextElements, {
+      gsap.to(leftTextElements, {
         opacity: 1,
         y: 0,
         stagger: 0.15,
         duration: 1,
-        ease: "power3.out"
-      }, "-=0.8");
+        ease: "power3.out",
+        delay: 0.2
+      });
     });
       (function () {
         'use strict';
